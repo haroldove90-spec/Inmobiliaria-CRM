@@ -13,6 +13,7 @@ import {
   CalendarCheck2,
   Scale,
   ShieldCheck,
+  FileText,
 } from 'lucide-react';
 import { UserRole, ActiveModule } from '../types';
 
@@ -59,6 +60,7 @@ export const BottomBar: React.FC<BottomBarProps> = ({
         return [
           { id: 'nom247', label: 'NOM-247', icon: <Scale className="w-5 h-5" /> },
           { id: 'safety_stps', label: 'STPS', icon: <ShieldCheck className="w-5 h-5" /> },
+          { id: 'expedientes', label: 'Expedientes', icon: <FileText className="w-5 h-5" /> },
         ];
     }
   };

@@ -5,13 +5,31 @@ import { Property, Employee } from '../../types';
 interface ComplianceAuditorProps {
   properties: Property[];
   employees: Employee[];
+  activeModule?: string;
+  onSelectModule?: (module: 'nom247' | 'safety_stps' | 'expedientes') => void;
 }
 
 export const ComplianceAuditor: React.FC<ComplianceAuditorProps> = ({
   properties,
   employees,
+  activeModule = 'nom247',
+  onSelectModule,
 }) => {
-  const [activeTab, setActiveTab] = useState<'nom247' | 'conocer_stps' | 'expedientes'>('nom247');
+  // Sync tab with external activeModule if provided
+  const getTabFromModule = (mod?: string): 'nom247' | 'conocer_stps' | 'expedientes' => {
+    if (mod === 'safety_stps' || mod === 'conocer_stps') return 'conocer_stps';
+    if (mod === 'expedientes') return 'expedientes';
+    return 'nom247';
+  };
+
+  const currentTab = getTabFromModule(activeModule);
+
+  const handleTabChange = (tab: 'nom247' | 'conocer_stps' | 'expedientes') => {
+    if (onSelectModule) {
+      if (tab === 'conocer_stps') onSelectModule('safety_stps');
+      else onSelectModule(tab);
+    }
+  };
 
   const certifiedCount = employees.filter((e) => e.certificationConocer).length;
   const certifiedPercent = Math.round((certifiedCount / employees.length) * 100);
@@ -35,25 +53,25 @@ export const ComplianceAuditor: React.FC<ComplianceAuditorProps> = ({
         {/* Tab switch */}
         <div className="flex items-center gap-1.5 p-1 bg-slate-100 rounded-xl border border-slate-200 text-xs font-semibold">
           <button
-            onClick={() => setActiveTab('nom247')}
+            onClick={() => handleTabChange('nom247')}
             className={`px-3 py-1.5 rounded-lg transition-colors ${
-              activeTab === 'nom247' ? 'bg-white text-purple-900 shadow-sm font-bold' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'nom247' ? 'bg-white text-purple-900 shadow-sm font-bold' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             NOM-247 & PROFECO
           </button>
           <button
-            onClick={() => setActiveTab('conocer_stps')}
+            onClick={() => handleTabChange('conocer_stps')}
             className={`px-3 py-1.5 rounded-lg transition-colors ${
-              activeTab === 'conocer_stps' ? 'bg-white text-purple-900 shadow-sm font-bold' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'conocer_stps' ? 'bg-white text-purple-900 shadow-sm font-bold' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             CONOCER & STPS (DC-3)
           </button>
           <button
-            onClick={() => setActiveTab('expedientes')}
+            onClick={() => handleTabChange('expedientes')}
             className={`px-3 py-1.5 rounded-lg transition-colors ${
-              activeTab === 'expedientes' ? 'bg-white text-purple-900 shadow-sm font-bold' : 'text-slate-600 hover:text-slate-900'
+              currentTab === 'expedientes' ? 'bg-white text-purple-900 shadow-sm font-bold' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Expedientes de Inmuebles
@@ -98,7 +116,7 @@ export const ComplianceAuditor: React.FC<ComplianceAuditorProps> = ({
       </div>
 
       {/* Tab 1: NOM-247 & Contratos PROFECO */}
-      {activeTab === 'nom247' && (
+      {currentTab === 'nom247' && (
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-6">
           <div className="border-b border-slate-100 pb-4">
             <h3 className="text-lg font-bold text-slate-900">
@@ -163,7 +181,7 @@ export const ComplianceAuditor: React.FC<ComplianceAuditorProps> = ({
       )}
 
       {/* Tab 2: Certificación CONOCER & STPS */}
-      {activeTab === 'conocer_stps' && (
+      {currentTab === 'conocer_stps' && (
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden p-6 space-y-4">
           <div className="border-b border-slate-100 pb-4">
             <h3 className="text-lg font-bold text-slate-900">
@@ -240,7 +258,7 @@ export const ComplianceAuditor: React.FC<ComplianceAuditorProps> = ({
       )}
 
       {/* Tab 3: Expedientes Legales Inmuebles */}
-      {activeTab === 'expedientes' && (
+      {currentTab === 'expedientes' && (
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
           <div className="border-b border-slate-100 pb-4">
             <h3 className="text-lg font-bold text-slate-900">

@@ -40,7 +40,13 @@ export default function App() {
     return (saved as RoleType) || null;
   });
 
-  const [activeModule, setActiveModule] = useState<string>('analytics');
+  const [activeModule, setActiveModule] = useState<string>(() => {
+    const savedRole = localStorage.getItem('inmo_role');
+    if (savedRole === 'agent') return 'pipeline';
+    if (savedRole === 'coordinator') return 'inbox';
+    if (savedRole === 'compliance') return 'nom247';
+    return 'analytics';
+  });
 
   // Application Data State
   const [properties, setProperties] = useState<Property[]>(() => {
@@ -110,7 +116,7 @@ export default function App() {
     if (role === 'admin') setActiveModule('analytics');
     else if (role === 'agent') setActiveModule('pipeline');
     else if (role === 'coordinator') setActiveModule('inbox');
-    else if (role === 'compliance') setActiveModule('compliance');
+    else if (role === 'compliance') setActiveModule('nom247');
   };
 
   // Handle Logout (return to role selector)
@@ -242,6 +248,7 @@ export default function App() {
               onUpdateCommission={handleUpdateCommission}
             />
           );
+        case 'inventory_control':
         case 'inventory':
           return (
             <InventoryApproval
@@ -249,6 +256,7 @@ export default function App() {
               onUpdatePropertyStatus={handleUpdatePropertyStatus}
             />
           );
+        case 'sales_supervision':
         case 'sales':
           return (
             <SalesSupervision
@@ -282,6 +290,7 @@ export default function App() {
               onAddLead={handleAddLead}
             />
           );
+        case 'inventory':
         case 'catalog':
           return (
             <AgentInventory
@@ -289,6 +298,7 @@ export default function App() {
               onReserveProperty={handleReserveProperty}
             />
           );
+        case 'calendar':
         case 'agenda':
           return (
             <AgentCalendar
@@ -362,6 +372,8 @@ export default function App() {
         <ComplianceAuditor
           properties={properties}
           employees={employees}
+          activeModule={activeModule}
+          onSelectModule={(mod) => setActiveModule(mod)}
         />
       );
     }

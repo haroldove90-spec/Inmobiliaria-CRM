@@ -13,6 +13,7 @@ import {
   CalendarCheck2,
   Scale,
   ShieldCheck,
+  FileText,
   LogOut,
   ChevronLeft,
   ChevronRight,
@@ -125,15 +126,21 @@ export const Sidebar: React.FC<SidebarProps> = ({
         return [
           {
             id: 'nom247',
-            label: 'NOM-247 & CONOCER',
-            description: 'Auditoría y adhesión PROFECO',
+            label: 'NOM-247 & Contratos PROFECO',
+            description: 'Auditoría de adhesión y folios oficiales',
             icon: <Scale className="w-5 h-5 shrink-0" />,
           },
           {
             id: 'safety_stps',
-            label: 'Seguridad STPS & Capacitación',
-            description: 'Protocolos de visita y normativas',
+            label: 'Seguridad STPS & CONOCER',
+            description: 'DC-3 y estándares de competencia',
             icon: <ShieldCheck className="w-5 h-5 shrink-0" />,
+          },
+          {
+            id: 'expedientes',
+            label: 'Expedientes de Inmuebles',
+            description: 'Libertad de gravamen y prediales',
+            icon: <FileText className="w-5 h-5 shrink-0" />,
           },
         ];
     }

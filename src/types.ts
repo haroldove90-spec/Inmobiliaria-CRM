@@ -4,7 +4,7 @@ export type RoleType = UserRole;
 export type AdminModule = 'analytics' | 'employees' | 'inventory_control' | 'sales_supervision';
 export type AgentModule = 'pipeline' | 'inventory' | 'calendar' | 'closures';
 export type CoordinatorModule = 'inbox' | 'distribution' | 'appointments';
-export type ComplianceModule = 'nom247' | 'safety_stps';
+export type ComplianceModule = 'nom247' | 'safety_stps' | 'expedientes';
 
 export type ActiveModule = AdminModule | AgentModule | CoordinatorModule | ComplianceModule;
 
