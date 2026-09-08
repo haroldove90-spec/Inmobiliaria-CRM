@@ -1,0 +1,19 @@
+{
+  "id": "/",
+  "name": "Inmobiliaria CRM",
+  "short_name": "InmoCRM",
+  "description": "CRM Inmobiliario Profesional con control de roles, analítica y gestión omnicanal.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#1e3a8a",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

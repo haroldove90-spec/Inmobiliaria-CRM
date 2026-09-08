@@ -1,0 +1,6 @@
+{
+  "name": "Inmobiliaria CRM",
+  "description": "CRM inmobiliario con control de acceso por roles, analítica de ventas, gestión de inventario, pipeline comercial y captación omnicanal.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
